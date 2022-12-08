@@ -16,7 +16,7 @@ const batchImport = async() => {
     try{
         await client.connect();
         
-        const db = await client.db("FinalProject");
+        const db = await client.db("GoGo");
         console.log("database connected!");
 
         console.log(`Items: ${items.length} items to be inserted to database`);
