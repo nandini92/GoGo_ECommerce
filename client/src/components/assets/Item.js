@@ -7,7 +7,7 @@ const Item = ({ item }) => {
       <Image src={item.imageSrc} alt="Product" />
       <TextWrapper>
         {item.numInStock >= 1 ? (
-          <Price>{item.price}</Price>
+          <Price price={item.price}>{item.price}</Price>
         ) : (
           <OutOfStock>Out of Stock</OutOfStock>
         )}
@@ -18,59 +18,64 @@ const Item = ({ item }) => {
 };
 
 const ItemContainer = styled(Link)`
-  text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 8px 0px var(--color-grey);
-  border-radius: 10px;
-  padding: 20px;
-  min-width: 200px;
-  height: 300px;
-  font-family: var(--font);
+  border-radius: 5%;
+  padding: 10%;
+  height: 30vh;
+  text-decoration: none;
+
+  @media (max-width: 912px) {
+    flex-direction: row;
+    height: 15vh;
+    justify-content: space-between;
+
+  }
 `;
 
 const Image = styled.img`
-    border-radius: 10px;
-    margin: auto;
-    -webkit-align-items: end;
-    -webkit-box-align: end;
-    -ms-flex-align: end;
-    align-items: end;
     max-height: 60%;
+    width: 100%;
+    max-width: 140px;
+
+    @media (max-width: 820px) {
+      width: 30%;
+      max-height: 100%;
+  }
 `;
 
-const OutOfStock = styled.p`
-  color: red;
-  font-style: italic;
-  margin-bottom: 20px;
-`;
-const Price = styled.div`
-  font-size: 1rem;
-  color: var(--color-dark-grey);
-  font-style: italic;
-  margin-bottom: 20px;
+const TextWrapper = styled.div`
+  text-align: center;
+
+  * {
+    margin: 1.5vh 0;
+  }
+
+  @media (max-width: 912px) {
+      width: 70%;
+      margin-left: 2vw;
+  }
 `;
 
 const Name = styled.div`
   color: var(--color-dark-grey);
   text-align: center;
-  color: var(--color-dark-grey);
-  height: 2.5rem;
   -webkit-line-clamp: 2;
-  line-height: 1.25rem;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
   -webkit-box-orient: vertical;
-  display: block;
   display: -webkit-box;
-  font-size: 1rem;
 `;
 
-const TextWrapper = styled.div`
-  text-align: center;
-  margin-top: 20px;
+const Price = styled.div`
+  color: var(--color-dark-grey);
+  font-style: italic;
 `;
 
+const OutOfStock = styled.p`
+  color: var(--color-grey);
+`;
 export default Item;

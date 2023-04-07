@@ -9,7 +9,6 @@ export default createGlobalStyle`
     --color-medium-grey: #dedede;
     --color-grey: #6b6b6b;
     --color-dark-grey: #262626;
-    --font: 'Calibri', sans-serif;
   }
   
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -73,5 +72,19 @@ li,
 blockquote,
 input {
   font-family: var(--font-body);
+}
+
+
+// Globally applied styles
+* {
+  box-sizing: border-box;
+  font-family: 'Calibri', sans-serif;
+}
+
+p, 
+a, 
+span,
+button {
+  font: 1.2rem;
 }
 `;

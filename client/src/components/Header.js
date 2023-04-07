@@ -7,6 +7,7 @@ import * as ThemifyIcons from "react-icons/tfi";
 
 const Header = ({ setEmail, setPassword }) => {
   const { signedIn, setSignedIn } = useContext(SignInContext);
+
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -18,7 +19,7 @@ const Header = ({ setEmail, setPassword }) => {
   };
 
   return (
-    <Wrapper id="Nav">
+    <Wrapper>
       <NavigationLink to="/" end>
         <Logo>GO</Logo>
         <LogoSpan>GO</LogoSpan>
@@ -30,7 +31,7 @@ const Header = ({ setEmail, setPassword }) => {
               <SignedInUser>Welcome {signedIn.firstName}</SignedInUser>
               <SignOut onClick={handleClick}>Log out</SignOut>
             </UserDiv>
-            <CartDivSignedIn id="cartDiv">
+            <CartDivSignedIn>
               <NavigationLink className="Cart" to="/cart" end>
                 <ThemifyIcons.TfiShoppingCart />
                 <Cart> Cart</Cart>
@@ -41,7 +42,7 @@ const Header = ({ setEmail, setPassword }) => {
         ) : (
           <>
             <NavigationLinkSignIn to="/sign-in">Sign In</NavigationLinkSignIn>
-              <CartDiv id="cartDiv">
+              <CartDiv>
                 <NavigationLink className="Cart" to="/cart" end>
                   <ThemifyIcons.TfiShoppingCart />
                   <Cart> Cart</Cart>
@@ -56,18 +57,15 @@ const Header = ({ setEmail, setPassword }) => {
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--color-dark-turquoise);
-  padding: 20px 3vw;
-  margin-bottom: 20px;
-  font-family: var(--font);
+  padding: 1vw 3vw;
 `;
 
 const NavigationLink = styled(NavLink)`
   text-decoration: none;
   color: var(--color-dark-grey);
-  font-size: 1.2rem;
   display: flex;
   align-items: center;
 
@@ -81,8 +79,6 @@ const NavigationLink = styled(NavLink)`
 `;
 
 const Cart = styled.span`
-  font-size: 1.2rem;
-
   &:hover {
     color: var(--color-turquoise);
   }
@@ -91,28 +87,34 @@ const Cart = styled.span`
     color: var(--color-turquoise);
   }
 `;
+
 const CartDiv = styled.div`
   display: flex;
   margin-left: 50px;
   align-items: flex-start;
 `;
+
 const CartDivSignedIn= styled.div`
   display: flex;
   margin-left: 50px;
   align-items: flex-start;
   flex-direction: column;
-`
+`;
+
 const Logo = styled.div`
   font-family: "Play", sans-serif;
   font-weight: bold;
   font-size: 3rem;
 `;
-const SignInCartWrapper = styled.div`
-  display: flex;
-`;
+
 const LogoSpan = styled.span`
   font-family: "Play", sans-serif;
 `;
+
+const SignInCartWrapper = styled.div`
+  display: flex;
+`;
+
 const SignedInUser = styled.div`
   display: flex;
   font-size: 1.2rem;
@@ -138,6 +140,7 @@ const UserDiv = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const SignOut = styled.button`
   display: flex;
   border: none;

@@ -6,7 +6,7 @@ import Filter from "./assets/Filter";
 
 import styled from "styled-components";
 import ReactPaginate from "react-paginate";
-import { 	SpinnerDiamond } from 'spinners-react';
+import { SpinnerDiamond } from "spinners-react";
 
 const Home = () => {
   const { items, companies } = useContext(DataContext);
@@ -36,88 +36,113 @@ const Home = () => {
     setItemOffset(newOffset);
   };
 
-  if (!filteredItems) {
-    return (
-      <Spinner>
-        <SpinnerDiamond size={90} thickness={97} speed={102} color="rgba(172, 139, 57, 1)" secondaryColor="rgba(57, 131, 172, 1)" />
-      </Spinner>
-    );
-  } else {
-    return (
-      <Wrapper>
-        <Filter
-          items={items}
-          companies={companies}
-          setFilteredItems={setFilteredItems}
-        />
-        <HomeContainer>
-          <Grid>
-            {currentItems.map((item) => {
-              return <Item key={item._id} item={item} />;
-            })}
-          </Grid>
-          <Pagination
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
+  return (
+    <Wrapper>
+      {!filteredItems ? (
+        <Spinner>
+          <SpinnerDiamond
+            size={90}
+            thickness={97}
+            speed={102}
+            color="rgba(172, 139, 57, 1)"
+            secondaryColor="rgba(57, 131, 172, 1)"
           />
-        </HomeContainer>
-      </Wrapper>
-    );
-  }
+        </Spinner>
+      ) : (
+        <>
+          { // Only display filter as column for bigger screens 
+          window.screen.width  > 412 && (
+            <Filter
+              items={items}
+              companies={companies}
+              setFilteredItems={setFilteredItems}
+            />
+          )}
+          <HomeContainer>
+            <Grid>
+              {currentItems.map((item) => {
+                return <Item key={item._id} item={item} />;
+              })}
+            </Grid>
+            <Pagination
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+            />
+          </HomeContainer>
+        </>
+      )}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
+  padding: 3vh 3vw;
   display: flex;
-  margin-bottom: 40px;
-`;
-
-const HomeContainer = styled.div`
-  display: flex;
-  width: 100%;
-  min-width: 800px;
-  margin: 0 3%;
-  flex-direction: column;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
-  gap: 2vw;
-  margin-bottom: 20px;
-  margin-top: 10px;
-`;
-
-const Pagination = styled(ReactPaginate)`
-  li {
-    display: inline-block;
-    border: 1px solid rgb(224, 224, 224);
-    color: #000;
-    cursor: pointer;
-    margin: 5px 3px;
-    border-radius: 5px;
-  }
-
-  li > a {
-    padding: 5px;
-    outline: none;
-  }
-
-  li:active {
-    background: var(--color-turquoise);
-    outline: none;
-  }
+  height: 100vh;
 `;
 
 const Spinner = styled.span`
   font-size: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 150px);
+  justify-self: center;
+  align-self: center;
+  padding-left: calc(50% - 3rem);
+
+  @media (max-width: 412px) {
+    flex-direction: column;
+    padding-top: calc(100% - 3rem);
+    padding-left: 0;
+  }
 `;
+
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 3%;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  gap: 2vh 2vw;
+  margin-bottom: 3%;
+
+  @media (max-width: 912px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const Pagination = styled(ReactPaginate)`
+  align-self: center;
+
+  li {
+    display: inline-block;
+    box-shadow: 0 0 8px 0px var(--color-grey);
+    cursor: pointer;
+    margin: 0 1vh;
+    border-radius: 50%;
+
+    a {
+      padding: 5px 4px;
+      outline: none;
+    }
+
+    &:hover {
+      background: var(--color-turquoise);
+      outline: none;
+    }
+
+    &:active {
+      background: var(--color-turquoise);
+      outline: none;
+    }
+  }
+`;
+
 export default Home;

@@ -131,9 +131,9 @@ const Filter = ({ items, companies, setFilteredItems }) => {
           >
             {companies &&
               companies.map((company) => (
-                <option key={company._id} accessKey={company._id}>
+                <Option key={company._id} accessKey={company._id}>
                   {company.name}
-                </option>
+                </Option>
               ))}
           </Select>
 
@@ -149,7 +149,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   white-space: nowrap;
   color: var(--color-dark-grey);
-  padding: 0px 10px 10px calc(3vw - 15px);
   font-family: var(--font);
 `;
 const Button = styled.button`
@@ -159,6 +158,7 @@ const Button = styled.button`
   background-color: white;
   color: var(--color-dark-grey);
   font-size: 1rem;
+  text-align: center;
   padding: 5px 5px 5px 15px;
   cursor: pointer;
 
@@ -196,6 +196,8 @@ const Reset = styled.button`
   }
 `;
 const Select = styled.select`
-cursor: pointer;
+  cursor: pointer;
+`
+const Option = styled.option`
 `
 export default Filter;
