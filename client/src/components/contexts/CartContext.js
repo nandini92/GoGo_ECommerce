@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
   // Function to create new cart
   const createNewCart = () => {
     return fetch("/cart", {
-      method: "POST",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

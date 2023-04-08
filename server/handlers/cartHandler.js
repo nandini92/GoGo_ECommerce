@@ -11,8 +11,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// Adds a new cart record to the cart collection /; ///////////////////
-// Makes sure items stay in cart on refresh, also allows user to have unique cart Id if sign in option exists
+// Adds a new cart record to the cart collection
 router.get("/cart", async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
@@ -34,7 +33,7 @@ router.get("/cart", async (req, res) => {
   }
 });
 
-// Add a new item to the cart ///////////////////////////////////////
+// Add a new item to the cart
 router.patch("/cart/:_id", async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const _id = req.params._id;
@@ -60,8 +59,8 @@ router.patch("/cart/:_id", async (req, res) => {
         .updateOne(queryObj, updateObj);
 
       return updatedCart
-        ? sendResponse(res, 200, updatedCart, "[ SUCCESS ]: cart updated")
-        : sendResponse(res, 500, null, "[ ERROR ]: updating cart in MongoDB");
+        ? sendResponse(res, 200, req.body, "[ SUCCESS ]: cart updated")
+        : sendResponse(res, 500, req.body, "[ ERROR ]: updating cart in MongoDB");
     }
     // Case: cart contains product. Update quantity for product.
     else {
@@ -76,19 +75,19 @@ router.patch("/cart/:_id", async (req, res) => {
         ? sendResponse(
             res,
             200,
-            updateQuantity,
+            req.body,
             "[ SUCCESS ]: quantity updated"
           )
-        : sendResponse(res, 400, null, "[ ERROR ]: updating cart in MongoDB");
+        : sendResponse(res, 400, req.body, "[ ERROR ]: updating cart in MongoDB");
     }
   } catch (error) {
-    sendResponse(res, 400, null, `${err}`);
+    sendResponse(res, 400, req.body, `${err}`);
   } finally {
     await client.close();
   }
 });
 
-// Deletes an order from the cart ///////////////////////////////////
+// Remove all items from a cart
 router.delete("/cart/:_id", async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
@@ -109,10 +108,7 @@ router.delete("/cart/:_id", async (req, res) => {
   }
 });
 
-// Get cart and its contents /; ///////////////////
-//endpoint to create new cart _id for session
-// This endpoint can also be used to assign a cart _id to signed in user
-//endpoint to get all items in cart
+// Gets all items in cart
 router.get("/cart/:_id", async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
@@ -133,7 +129,7 @@ router.get("/cart/:_id", async (req, res) => {
   }
 });
 
-// Deletes specific product from cart ///////////////////////////////
+// Deletes specific product from cart
 router.patch("/remove-product-cart/:_id", async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
@@ -149,11 +145,11 @@ router.patch("/remove-product-cart/:_id", async (req, res) => {
       .updateOne({ _id }, { $pull: { products: { product: product } } });
 
     return removeItemFromCart.modifiedCount !== 0
-      ? sendResponse(res, 200, removeItemFromCart, "Product removed from cart")
+      ? sendResponse(res, 200, req.body, "Product removed from cart")
       : sendResponse(
           res,
           400,
-          null,
+          req.body,
           "[ ERROR ] Product was not removed from Cart"
         );
   } catch (error) {
