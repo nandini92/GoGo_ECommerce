@@ -27,6 +27,7 @@ const ItemContainer = styled(Link)`
   padding: 10%;
   height: 30vh;
   text-decoration: none;
+  max-width: 20vw;
 
   @media (max-width: 912px) {
     flex-direction: row;

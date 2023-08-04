@@ -173,14 +173,17 @@ const ItemWrapper = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 3vh 3vw;
-  max-width: 80%;
+  width: 50%;
   margin-bottom: 3vh;
 
   @media (max-device-width: 412px) {
+    height: 100%;
     flex-direction: column;
+    justify-content: space-around;
     max-width: 100%;
+    box-shadow: none;
   }
 `;
 const Image = styled.img`

@@ -6,17 +6,17 @@ import styled from "styled-components";
 import * as ThemifyIcons from "react-icons/tfi";
 
 const Header = ({ setEmail, setPassword }) => {
-  const { signedIn, setSignedIn } = useContext(SignInContext);
+  // const { signedIn, setSignedIn } = useContext(SignInContext);
 
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setSignedIn(false);
-    setEmail("");
-    setPassword("");
-    navigate("/");
-  };
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   setSignedIn(false);
+  //   setEmail("");
+  //   setPassword("");
+  //   navigate("/");
+  // };
 
   return (
     <Wrapper>
@@ -24,7 +24,11 @@ const Header = ({ setEmail, setPassword }) => {
         <Logo>GO</Logo>
         <LogoSpan>GO</LogoSpan>
       </NavigationLink>
-      <SignInCartWrapper id="signIn&Cart">
+      <NavigationLink className="Cart" to="/cart" end>
+        <ThemifyIcons.TfiShoppingCart style={{ fontSize: "1.5em" }} />
+      </NavigationLink>
+      {/* Deprecated Sign in handler */
+      /* <SignInCartWrapper id="signIn&Cart">
         {signedIn ? (
           <>
             <UserDiv>
@@ -50,7 +54,7 @@ const Header = ({ setEmail, setPassword }) => {
               </CartDiv>
           </>
         )}
-      </SignInCartWrapper>
+      </SignInCartWrapper> */}
     </Wrapper>
   );
 };
@@ -65,36 +69,16 @@ const Wrapper = styled.div`
 
 const NavigationLink = styled(NavLink)`
   text-decoration: none;
-  color: var(--color-dark-grey);
+  color: var(--color-turquoise);
   display: flex;
-  align-items: center;
-
-  &:hover {
-    color: var(--color-turquoise);
-  }
-
-  &.active {
-    color: var(--color-turquoise);
-  }
 `;
-
-const Cart = styled.span`
-  &:hover {
-    color: var(--color-turquoise);
-  }
-
-  &.active {
-    color: var(--color-turquoise);
-  }
-`;
-
 const CartDiv = styled.div`
   display: flex;
   margin-left: 50px;
   align-items: flex-start;
 `;
 
-const CartDivSignedIn= styled.div`
+const CartDivSignedIn = styled.div`
   display: flex;
   margin-left: 50px;
   align-items: flex-start;
